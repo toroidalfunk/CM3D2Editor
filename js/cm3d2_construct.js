@@ -10,6 +10,20 @@
         factory(root, root.construct);
     }
 }(this, function (exports, c) {
+	var suppressVersion;
+	function checkVersion(version) {
+		if (version > 122 || version < 101) {
+			if (suppressVersion === undefined) {
+				if (exports.confirm) {
+					suppressVersion = exports.confirm('Unsupported version. Continue?');
+				}
+			}
+			if (!suppressVersion) {
+				throw new Error('Version ' + (version / 100) + ' is not supported');
+			}
+		}
+	}
+
     var encint = new c.Construct();
     encint._parse = function(stream) {
         var value = 0,
@@ -39,8 +53,8 @@
     var string = c.encoded(c.prefixedRaw(encint), 'utf-8');
     var binary = c.base64(c.prefixedRaw(int32));
     var magic = function(s){return [null, const_(string, s)]}
-    var version = c.oneOf(int32, [101, 102, 103]);
-    var version2 = c.oneOf(int32, [2, 100, 101, 102, 103]);
+    var version = c.validate(int32, checkVersion);
+    var version2 = version;
     var if_ = c.if_;
     var afterver = function(version, subcon) {
         return if_(function(x){return x.version > version}, subcon)
@@ -141,6 +155,11 @@
         ['haveTrophyList', list(int32)],
         ['maidClassOpenFlag', afterver(9, list(int32))],
         ['yotogiClassOpenFlag', afterver(9, list(int32))],
+        ['rentalMaidBackupDataDic', minver(117, dict(string, struct([
+            ['name', string],
+            ['seikeiken', int32],
+            ['genericFlag', dict(string, int32)]
+        ])))],
         [null, const_(int32, 348195810)]
     ]);
 
@@ -363,9 +382,13 @@
     ]);
 
 	exports.parseSaveData = function(buffer) {
-        return save.parse(buffer);
+        suppressVersion = undefined;
+        var o = save.parse(buffer);
+        o.suppressVersion = suppressVersion;
+        return o;
     };
 	exports.writeSaveData = function(data) {
+        suppressVersion = data.suppressVersion;
         return save.build(data);
     };
     //exports.save_construct = save;

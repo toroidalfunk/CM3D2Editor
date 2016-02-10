@@ -26,11 +26,15 @@
 	  <li><a onclick="util.unlockBodyLimits()" i18n-text="util.unlockBodyLimits"></a></li>
 	  <li><a onclick="util.allItems()" i18n-text="util.allItems"></a></li>
 	  <li><a onclick="util.allTrophies()" i18n-text="util.allTrophies"></a></li>
+	  <li><a onclick="util.removeModItems()" i18n-text="util.removeModItems"></a></li>
+	  <li><a onclick="util.finishAllVip()" i18n-text="util.finishAllVip"></a></li>
 	  <li class="divider" bind-show="showMaidUtil"></li>
 	  <li><a onclick="util.maidClassMax()" i18n-text="util.maidClassMax" bind-show="showMaidUtil"></a></li>
 	  <li><a onclick="util.yotogiClassMax()" i18n-text="util.yotogiClassMax" bind-show="showMaidUtil"></a></li>
 	  <li><a onclick="util.allSkills()" i18n-text="util.allSkills" bind-show="showMaidUtil"></a></li>
 	  <li><a onclick="util.allWork()" i18n-text="util.allWork" bind-show="showMaidUtil"></a></li>
+	  <li><a onclick="util.masterPlayedSkills()" i18n-text="util.masterPlayedSkills" bind-show="showMaidUtil"></a></li>
+	  <li><a onclick="util.removeExGrpVIP()" i18n-text="util.removeExGrpVIP" bind-show="showMaidUtil"></a></li>
 	</ul>
 	<nav>
 		<div class="nav-wrapper">
@@ -41,6 +45,7 @@
 			<li><a id="button-loadjson" i18n-text="ui.loadjson"></a></li>
 			<li><a id="button-savejson" bind-show="save" i18n-text="ui.savejson"></a></li>
 			<li i18n-show="createurl"><a id="button-createurl" i18n-text="createurl" bind-show="save"></a></li>
+			<li><a id="button-settings" i18n-text="ui.setting"></a></li>
 			<li><a class="dropdown-button" data-activates="nav-utilities" i18n-text="utility" bind-show="save"></a></li>
 			</ul>
 		</div>
@@ -239,6 +244,43 @@
 		</div>
 	</div>
 
+	<div id="settings" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4 i18n-text="setting.title"></h4>
+			<div class="input-field">
+				<input type="checkbox" id="setting-ytgc001" bind-checked="/ytgc001"/>
+				<label for="setting-ytgc001" i18n-text="setting.ytgc001"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-cbp" bind-checked="/cbp"/>
+				<label for="setting-cbp" i18n-text="setting.cbp"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-ytgc002" bind-checked="/ytgc002"/>
+				<label for="setting-ytgc002" i18n-text="setting.ytgc002"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-ytgc003" bind-checked="/ytgc003"/>
+				<label for="setting-ytgc003" i18n-text="setting.ytgc003"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-yandere" bind-checked="/yandere"/>
+				<label for="setting-yandere" i18n-text="setting.yandere"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-dkg_winter" bind-checked="/dkg_winter"/>
+				<label for="setting-dkg_winter" i18n-text="setting.dkg_winter"></label>
+			</div>
+			<div class="input-field">
+				<input type="checkbox" id="setting-plus" bind-checked="/plus"/>
+				<label for="setting-plus" i18n-text="setting.plus"></label>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a class="modal-action modal-close btn-flat" i18n-text="ui.close"></a>
+		</div>
+	</div>
+
 	<div id="saveEditor" style="display: none;">
 		<ul class="tabs">
 		<li class="tab"><a onclick="bindings.showMaidUtil=false" class="active" href="#profile" i18n-text="game.playerParam"></a></li>
@@ -369,11 +411,24 @@
 						</select>
 						<label>[game.maid.contractType]</label>
 					</div>
-					<div class="input-field col s3">
+					<div class="input-field col s3" bind-show="/plus">
+						<input type="checkbox" id="param-isRented" bind-checked="maid.param.isRentalMaid"/>
+						<label for="param-isRented" i18n-text="game.maid.isRented"></label>
+					</div>
+					<div class="input-field col s3" bind-hide="/yandere">
 						<select bind-value="maid.param.personal|int32">
 							<option value="0">[game.maid.p_innocent]</option>
 							<option value="1">[game.maid.p_cool]</option>
 							<option value="2">[game.maid.p_proud]</option>
+						</select>
+						<label>[game.maid.personality]</label>
+					</div>
+					<div class="input-field col s3" bind-show="/yandere">
+						<select bind-value="maid.param.personal|int32">
+							<option value="0">[game.maid.p_innocent]</option>
+							<option value="1">[game.maid.p_cool]</option>
+							<option value="2">[game.maid.p_proud]</option>
+							<option value="3">[game.maid.p_yandere]</option>
 						</select>
 						<label>[game.maid.personality]</label>
 					</div>

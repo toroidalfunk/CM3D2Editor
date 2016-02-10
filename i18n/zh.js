@@ -86,10 +86,13 @@ var i18n = {
 			freeMaid: "自由女仆",
 			privateMaid: "专属女仆",
 
+			isRented: "租借女仆",
+
 			personality: "性格",
 			p_innocent: "天真",
 			p_cool: "冷酷",
-			p_proud: "骄傲",
+			p_proud: "傲娇",
+			p_yandere: "病骄",
 
 			initSeikenken: "初始性经验",
 			seikenken: "性经验",
@@ -170,6 +173,7 @@ var i18n = {
 		save: "保存",
 		loadjson: "载入JSON",
 		savejson: "保存JSON",
+		setting: "设置",
 
 		close: "关闭",
 
@@ -179,6 +183,17 @@ var i18n = {
 
 		updateNotice: "CM3D2 Editor 已经更新到版本 ${version}",
 		updateHistoryTemplate: "更新历史<br/>${body}",
+	},
+
+	setting: {
+		title: "设置",
+		ytgc001: "我已安装夜咖等级技能包 Vol.1",
+		cbp: "我已安装 Chu-B Lip 特别版",
+		ytgc002: "我已安装夜咖等级技能包 Vol.2",
+		ytgc003: "我已安装夜咖等级技能包 Vol.3",
+		yandere: "我已安装病娇性格扩展包",
+		dkg_winter: "我已安装电气改2015冬扩展包",
+		plus: "我已安装增强扩展包"
 	},
 
 	util: {
@@ -195,10 +210,32 @@ var i18n = {
 		allSkills: "当前女仆全部技能满级",
 		allSkillsFinished: "当前女仆的技能已全部解锁并升至满级",
 		allWork: "当前女仆全部工作满级",
-		allWorkFinished: "当前女仆的工作已升至满级"
+		allWorkFinished: "当前女仆的工作已升至满级",
+		masterPlayedSkills: "当前女仆进行过的技能全部满级",
+		masterPlayedSkillsFinished: "当前女仆进行过的技能已经全部满级",
+		removeExGrpVIP: "移除交换、乱交、VIP经验",
+		removeExGrpVIPFinished: "交换、乱交、VIP经验均已移除",
+		removeModItems: "移除所有Mod物品",
+		removeModItemsFinished: "共移除${count}件Mod物品",
+		finishAllVip: "标记所有VIP事件为已完成",
+		finishAllVipDone: "所有VIP事件均已被标记成已完成"
 	},
 
 	updateHistory: {
+		"1.6.1": ["增加标记所有VIP事件为已完成的功能", "<small>这样你就能进行事件回放</small>"],
+		"1.6.0": ["CM3D2 1.22 测试通过", "支持增强扩展包"],
+		"1.5.2": ["支持电气改2015冬扩展包"],
+		"1.5.1": ["支持病娇性格扩展包"],
+		"1.5.0": ["支持夜咖DLC Vol.3技能"],
+		"1.4.5": ["支持 CM3D2 1.19"],
+		"1.4.4": ["支持夜咖DLC Vol.2技能"],
+		"1.4.3": ["支持Chu-B技能"],
+		"1.4.2": ["支持新DLC夜咖技能", "增加设置界面选择已安装的DLC"],
+		"1.4.1": ["CM3D2 1.10 测试通过", "支持新DLC夜咖等级"],
+		"1.4.0": ["新增移除所有Mod物品的工具", "<small>该工具能够解决移除Mod而导致游戏未响应的问题</small>"],
+		"1.3.0": ["CM3D2 1.09 测试通过", "新增移除交换、乱交和VIP经验的工具"],
+		"1.2.1": ["CM3D2 1.05 测试通过"],
+		"1.2.0": ["新增只有玩过的技能才满级的工具"],
 		"1.1.2": ["支持IE10"],
 		"1.1.1": ["修正部分翻译"],
 		"1.1.0": ["新增物品一键解锁", "新增奖杯一键解锁"],

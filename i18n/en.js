@@ -86,10 +86,13 @@ var i18n = {
 			freeMaid: "Free Maid",
 			privateMaid: "Private Maid",
 
+			isRented: "Rented Maid",
+
 			personality: "Personality",
 			p_innocent: "Innocent",
 			p_cool: "Cool",
-			p_proud: "Proud",
+			p_proud: "Tsundere",
+			p_yandere: "Yandere",
 
 			initSeikenken: "Initial Sex Experience",
 			seikenken: "Sex Experience",
@@ -170,6 +173,7 @@ var i18n = {
 		save: "Save",
 		loadjson: "Load JSON",
 		savejson: "Save JSON",
+		setting: "Settings",
 
 		close: "Close",
 
@@ -179,6 +183,17 @@ var i18n = {
 
 		updateNotice: "CM3D2 Editor is updated to version ${version}",
 		updateHistoryTemplate: "Update History<br/>${body}",
+	},
+
+	setting: {
+		title: "Settings",
+		ytgc001: "I have installed Yotogi Class Skills Vol.1",
+		cbp: "I have installed Chu-B Lip Special Version",
+		ytgc002: "I have installed Yotogi Class Skills Vol.2",
+		ytgc003: "I have installed Yotogi Class Skills Vol.3",
+		yandere: "I have installed Yandere Personality Pack",
+		dkg_winter: "I have installed Denkigai 2015 Winter",
+		plus: "I have installed Plus Pack"
 	},
 
 	util: {
@@ -195,10 +210,32 @@ var i18n = {
 		allSkills: "Master All Skills For Current Maid",
 		allSkillsFinished: "Current maid now masters all skills",
 		allWork: "Master All Works For Current Maid",
-		allWorkFinished: "Current maid now masters all works"
+		allWorkFinished: "Current maid now masters all works",
+		masterPlayedSkills: "Master Played Skills For Selected Maid",
+		masterPlayedSkillsFinished: "Selected maid now masters all played skills",
+		removeExGrpVIP: "Remove Exchange, Group and VIP Experiences",
+		removeExGrpVIPFinished: "Exchange, group and VIP experiences removed",
+		removeModItems: "Remove All Mod Items",
+		removeModItemsFinished: "${count} mod item(s) removed",
+		finishAllVip: "Mark All VIP Events As Finished",
+		finishAllVipDone: "All VIP events are marked as finished"
 	},
 
 	updateHistory: {
+		"1.6.1": ["Utility Added: Mark All VIP Events As Finished", "<small>So you can replay the event.</small>"],
+		"1.6.0": ["CM3D2 1.22 Supported", "Plus Pack Supported"],
+		"1.5.2": ["Denkigai 2015 Winter Supported"],
+		"1.5.1": ["Yandere Personality Pack Supported"],
+		"1.5.0": ["Yotogi Skills Vol.3 Supported"],
+		"1.4.5": ["CM3D2 1.19 Supported"],
+		"1.4.4": ["Yotogi Skills Vol.2 Supported"],
+		"1.4.3": ["Chu-B Skills Supported"],
+		"1.4.2": ["New DLC Yotogi Skills Supported", "Enable DLC Features in Setting"],
+		"1.4.1": ["CM3D2 1.10 Tested", "New DLC Yotogi Class Supported"],
+		"1.4.0": ["Utility Added: Remove All Mod Items", "<small>This can fix hanging of the game when mods are removed</small>"],
+		"1.3.0": ["CM3D2 1.09 Tested", "Utility Added: Remove Exchange, Group and VIP Experiences"],
+		"1.2.1": ["CM3D2 1.05 Tested"],
+		"1.2.0": ["Utility Added: Master Only Played Skills For Selected Maid"],
 		"1.1.2": ["Add IE 10 Support"],
 		"1.1.1": ["Add English Translation"],
 		"0.0.1-1.1.0": ["Basic Functionalities"]

@@ -182,6 +182,8 @@ Uint8Array.fromBase64 = function(input) {
 };
 
 (function(exports) {
+	var suppressVersion;
+
 	function getKeys(obj) {
 		return Object.getOwnPropertyNames(obj).filter(function(name) {
 			return name !== '_rv';
@@ -189,8 +191,15 @@ Uint8Array.fromBase64 = function(input) {
 	}
 
 	function checkVersion(version) {
-		if (version > 103 || version < 101) {
-			throw new Error('Version ' + (version / 100) + ' is not supported');
+		if (version > 122 || version < 101) {
+			if (suppressVersion === undefined) {
+				if (exports.confirm) {
+					suppressVersion = exports.confirm('Unsupported version. Continue?');
+				}
+			}
+			if (!suppressVersion) {
+				throw new Error('Version ' + (version / 100) + ' is not supported');
+			}
 		}
 	}
 
@@ -469,7 +478,8 @@ Uint8Array.fromBase64 = function(input) {
 		if (reader.readString() !== 'CM3D2_PPARAM') {
 			throw new Error('Expected CM3D2_PPARAM');
 		}
-		checkVersion(reader.readInt32());
+		var version = reader.readInt32();
+		checkVersion(version);
 
 		var ret = {
 			playerName: reader.readString(),
@@ -494,6 +504,7 @@ Uint8Array.fromBase64 = function(input) {
 			haveTrophyList: [],
 			maidClassOpenFlag: [],
 			yotogiClassOpenFlag: [],
+			rentalMaidBackupDataDic: {},
 		};
 
 		for (var i = 0; i < 6; i++) {
@@ -542,6 +553,22 @@ Uint8Array.fromBase64 = function(input) {
 			ret.yotogiClassOpenFlag.push(reader.readInt32());
 		}
 
+		if (version >= 117) {
+			for (var i = reader.readInt32(); i > 0; i--) {
+				var key = reader.readString();
+				var data = {
+					name: reader.readString(),
+					seikeiken: reader.readInt32(),
+					genericFlag: []
+				};
+				ret.rentalMaidBackupDataDic[key] = data;
+
+				for (var j = reader.readInt32(); j > 0; j--) {
+					data.genericFlag[reader.readString()] = reader.readInt32();
+				}
+			}
+		}
+
 		if (reader.readInt32() !== 348195810) {
 			throw new Error('Magic number mismatch');
 		}
@@ -550,6 +577,8 @@ Uint8Array.fromBase64 = function(input) {
 	}
 
 	function parseSaveData(buffer) {
+		suppressVersion = undefined;
+
 		var reader = new BinaryReader(buffer);
 		if (reader.readString() !== 'CM3D2_SAVE') {
 			throw new Error('Expected CM3D2_SAVE');
@@ -923,6 +952,24 @@ Uint8Array.fromBase64 = function(input) {
 		writer.writeInt32(data.yotogiClassOpenFlag.length);
 		for (var i = 0; i < data.yotogiClassOpenFlag.length; i++) {
 			writer.writeInt32(data.yotogiClassOpenFlag[i]);
+		}
+
+		if (version >= 117) {
+			var keys = getKeys(data.rentalMaidBackupDataDic);
+			writer.writeInt32(keys.length);
+			for (var i = 0; i < keys.length; i++) {
+				writer.writeString(keys[i]);
+				var data2 = data.rentalMaidBackupDataDic[keys[i]];
+				writer.writeString(data2.name);
+				writer.writeInt32(data2.seikeiken);
+
+				var flagKeys = getKeys(data2.genericFlag);
+				writer.writeInt32(flagKeys.length);
+				for (var j = 0; j < flagKeys.length; j++) {
+					writer.writeString(flagKeys[j]);
+					writer.writeInt32(data2.genericFlag[flagKeys[j]]);
+				}
+			}
 		}
 
 		writer.writeInt32(348195810);
